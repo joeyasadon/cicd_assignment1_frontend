@@ -18,10 +18,11 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
+      - setup_remote_docker
       - run:
           name: Build Docker Image
           command: |
-            docker build -t react_tasksphere_app .
+            docker build -t tasksphere-react .
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/guides/orchestrate/workflows/ & https://circleci.com/docs/reference/configuration-reference/#workflows
 workflows:
