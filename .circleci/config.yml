@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            docker build -t tasksphere-react .
+            docker build -t react_tasksphere_app .
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/guides/orchestrate/workflows/ & https://circleci.com/docs/reference/configuration-reference/#workflows
 workflows:
