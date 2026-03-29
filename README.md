@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# TaskSphere Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React frontend application for TaskSphere task management system, built with axios for API communication and React Router for navigation.
 
 ## Available Scripts
 
