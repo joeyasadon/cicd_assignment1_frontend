@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { tasksAPI } from '../../api/tasksApi';
 import './EditTask.css';
@@ -17,39 +17,36 @@ const EditTask = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchTask();
-  }, [id]);
-
-  const fetchTask = async () => {
+  const fetchTask = useCallback(async () => {
     try {
       const response = await tasksAPI.getTask(id);
       console.log('Edit task API response:', response);
       
       // Handle nested response structure
-      let taskData = response.data;
-      if (response.data?.task) {
-        taskData = response.data.task;
-      } else if (response.data?.data) {
-        taskData = response.data.data;
+      const taskData = response.data || response;
+      console.log('Task data:', taskData);
+      
+      if (taskData) {
+        setFormData({
+          title: taskData.title || '',
+          description: taskData.description || '',
+          status: taskData.status || 'pending',
+          priority: taskData.priority || 'medium',
+          due_date: taskData.due_date ? new Date(taskData.due_date).toISOString().split('T')[0] : '',
+          assigned_to: taskData.assigned_to || '',
+        });
       }
-      
-      console.log('Task data for form:', taskData);
-      
-      setFormData({
-        title: taskData.title || '',
-        description: taskData.description || '',
-        priority: taskData.priority || 'medium',
-        status: taskData.status || 'todo',
-        category: taskData.category || '',
-      });
     } catch (err) {
-      setError('Failed to load task');
-      console.error('Fetch task error:', err);
+      console.error('Error fetching task:', err);
+      setError('Failed to load task. Please try again.');
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchTask();
+  }, [id, fetchTask]);
 
   const handleChange = (e) => {
     setFormData({
