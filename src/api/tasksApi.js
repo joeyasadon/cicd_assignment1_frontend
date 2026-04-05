@@ -60,9 +60,4 @@ export const tasksAPI = {
   getTasksByStatus: (status) => {
     return api.get(`/api/tasks/?status=${status}`);
   },
-
-  // Update task status
-  updateTaskStatus: (taskId, statusData) => {
-    return api.patch(`/api/tasks/${taskId}/`, statusData);
-  },
 };

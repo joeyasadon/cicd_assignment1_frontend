@@ -102,12 +102,6 @@ const Dashboard = () => {
     }
   };
 
-  const handleTaskClick = (taskId) => {
-    setShowSearchResults(false);
-    setSearchQuery('');
-    navigate(`/edit-task/${taskId}`);
-  };
-
   const handleEdit = (taskId) => {
     setShowSearchResults(false);
     setSearchQuery('');

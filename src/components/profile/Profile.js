@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
@@ -10,7 +10,7 @@ const Profile = () => {
   console.log('Profile component - error:', error);
   
   // Extract profile data from nested response
-  const profileData = user?.profile || user || {};
+  const profileData = useMemo(() => user?.profile || user || {}, [user]);
   console.log('Profile component - profileData:', profileData);
   console.log('Profile component - date_joined:', profileData.date_joined);
   console.log('Profile component - all profileData keys:', Object.keys(profileData));
